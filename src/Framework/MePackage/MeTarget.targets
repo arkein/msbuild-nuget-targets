@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup>
+        <BaggageFiles Include="$(MSBuildThisFileDirectory)**\*.txt"/>
+    </ItemGroup>
+	<!-- When using packages.config, the target from build is only executed where imported into the project file.	-->
+	<!-- This might work differently with PackageReference -->
+	<Target Name="SayHello" BeforeTargets="CoreCompile"> 
+		<Message Text="MEINCLUDED!"/>
+		<Copy SourceFiles="@(BaggageFiles)" DestinationFolder="$(OutDir)" />
+    </Target>
+	<!-- THE COPY ALWAYS ITEMS FROM THE ITEMGROUPS ARE PROPAGATED TO EVERY REFERENCING PROJECT -->
+    <!-- <ItemGroup> -->
+		<!-- <None Include="$(MSBuildThisFileDirectory)baggage.txt"> -->
+			<!-- <Link>baggage.txt</Link> -->
+			<!-- <CopyToOutputDirectory>Always</CopyToOutputDirectory> -->
+		<!-- </None> -->
+	<!-- </ItemGroup> -->
+</Project>
